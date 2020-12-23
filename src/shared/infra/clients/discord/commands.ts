@@ -17,7 +17,7 @@ export const cmds: ICommands = [
     name: 'dashboard',
     execute: async ({ message }: IDiscordArgs): Promise<void> => {
       await message.channel.send(
-        'Aqui está a dashboard do server: https://hbot.vercel.app/'
+        `Aqui está a dashboard do server: ${process.env.FRONTEND_URL}`
       );
     },
   },
