@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { MessageEmbed, TextChannel, User } from 'discord.js';
+import { GuildMember, MessageEmbed, TextChannel } from 'discord.js';
 import { container } from 'tsyringe';
 
 import { IDiscordArgs } from '@shared/core/Command';
@@ -25,13 +25,15 @@ export class WarnUserController {
       );
     }
 
-    let userData: User;
+    let member: GuildMember;
 
     try {
-      userData = await client.users.fetch(user_id).catch(null);
+      member = await message.guild.members.fetch(user_id);
     } catch (err) {
       return message.channel.send('Usuário não encontrado');
     }
+
+    const { user: userData } = member;
 
     const userDataEmbed = new MessageEmbed()
       .setColor('#dddddd')
@@ -53,10 +55,6 @@ export class WarnUserController {
     });
 
     await msg.delete();
-
-    const member = await message.guild.members.fetch({
-      user: userData,
-    });
 
     const warningChannel = (await client.channels.fetch(
       '785302446087995392'
