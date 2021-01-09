@@ -11,4 +11,4 @@ export interface ICommand {
   execute(args: IDiscordArgs): Promise<any>;
 }
 
-export type ICommands = ICommand[];
+export type ICommands = Array<{ new (): ICommand }>;

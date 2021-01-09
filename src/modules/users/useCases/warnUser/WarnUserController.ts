@@ -2,12 +2,14 @@
 import { GuildMember, MessageEmbed, TextChannel } from 'discord.js';
 import { container } from 'tsyringe';
 
-import { IDiscordArgs } from '@shared/core/Command';
+import { ICommand, IDiscordArgs } from '@shared/core/Command';
 
 import { warnType } from './WarnUserDTO';
 import { WarnUserUseCase } from './WarnUserUseCase';
 
-export class WarnUserController {
+export class WarnUserController implements ICommand {
+  public readonly name = 'warn';
+
   async execute({ args, client, message }: IDiscordArgs): Promise<any> {
     if (!message.member.hasPermission('MANAGE_ROLES')) {
       return message.channel.send(

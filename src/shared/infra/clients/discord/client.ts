@@ -22,8 +22,10 @@ export class Discord extends Client {
   }
 
   private loadCmds() {
-    cmds.forEach((cmd) => {
-      this.commands.set(cmd.name, cmd);
+    cmds.forEach((Cmd) => {
+      const Command = new Cmd();
+
+      this.commands.set(Command.name, Command);
     });
   }
 }
