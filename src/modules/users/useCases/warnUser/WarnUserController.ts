@@ -19,18 +19,20 @@ export class WarnUserController implements ICommand {
 
     const [user_id, warn] = args as [string, warnType];
 
+    const userId = user_id.replace(/\D/g, '');
+
     const warnTypes: warnType[] = ['leve', 'grave', 'hedionda'];
 
-    if (!user_id || !warn || !Number(user_id) || !warnTypes.includes(warn)) {
+    if (!userId || !warn || !Number(userId) || !warnTypes.includes(warn)) {
       return message.channel.send(
-        'Argumentos inválidos, tenha certeza que eles estejam nessa ordem: !warn [ID do discord] [Tipo]'
+        'Argumentos inválidos, tenha certeza que eles estejam nessa ordem: !warn [@ do usuário] [Tipo]'
       );
     }
 
     let member: GuildMember;
 
     try {
-      member = await message.guild.members.fetch(user_id);
+      member = await message.guild.members.fetch(userId);
     } catch (err) {
       return message.channel.send('Usuário não encontrado');
     }
