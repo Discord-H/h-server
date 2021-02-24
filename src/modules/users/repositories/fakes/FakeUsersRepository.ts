@@ -22,13 +22,19 @@ export class FakeUsersRepository implements IUsersRepository {
     return this.users.find((user) => user.discord_id === id);
   }
 
-  async update({ id, warns, all_time_warns }: IUserUpdateDTO): Promise<void> {
+  async update({
+    id,
+    warns,
+    all_time_warns,
+    profile_pic,
+  }: IUserUpdateDTO): Promise<void> {
     this.users = this.users.map((user) => {
       if (user._id === id) {
         return {
           ...user,
           warns,
           all_time_warns,
+          profile_pic,
         };
       }
 

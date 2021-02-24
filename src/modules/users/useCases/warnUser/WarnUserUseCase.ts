@@ -22,6 +22,7 @@ export class WarnUserUseCase implements IUseCase<IWarnUserDTO, string> {
         id: user._id,
         warns: user.warns + 1,
         all_time_warns: user.all_time_warns + 1,
+        profile_pic: data.profile_pic,
       });
 
       return 'warn';
@@ -31,6 +32,7 @@ export class WarnUserUseCase implements IUseCase<IWarnUserDTO, string> {
       id: user._id,
       warns: 0,
       all_time_warns: user.all_time_warns + (warn === 'leve' ? 1 : 2),
+      profile_pic: data.profile_pic,
     });
 
     return warn === 'leve' || warn === 'grave' ? 'mute' : 'even';

@@ -31,14 +31,20 @@ export class UsersRepository implements IUsersRepository {
     });
   }
 
-  async update(data: IUserUpdateDTO): Promise<void> {
+  async update({
+    warns,
+    all_time_warns,
+    profile_pic,
+    id,
+  }: IUserUpdateDTO): Promise<void> {
     this.orm.update(
       {
-        _id: data.id,
+        _id: id,
       },
       {
-        warns: data.warns,
-        all_time_warns: data.all_time_warns,
+        warns,
+        all_time_warns,
+        profile_pic,
       }
     );
   }
