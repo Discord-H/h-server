@@ -1,9 +1,15 @@
+import { container } from 'tsyringe';
+
+import { ILoggerProvider } from '@shared/containers/providers/models/ILoggerProvider';
+
 import { Discord } from './client';
 
 const client = new Discord();
 
+const loggerProvider = container.resolve<ILoggerProvider>('LoggerProvider');
+
 client.on('ready', () => {
-  console.log('Bot ready!');
+  loggerProvider.log({ message: 'Discord Client ready' });
 });
 
 client.on('message', async (message) => {

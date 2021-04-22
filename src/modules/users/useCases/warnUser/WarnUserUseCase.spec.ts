@@ -1,3 +1,5 @@
+import { WinstonLoggerProvider } from '@shared/containers/providers/implementations/logger/WinstonLoggerProvider';
+
 import { FakeUsersRepository } from '@modules/users/repositories/fakes/FakeUsersRepository';
 
 import { IUsersRepository } from '../../repositories/IUsersRepository';
@@ -5,11 +7,12 @@ import { WarnUserUseCase } from './WarnUserUseCase';
 
 let usersRepository: IUsersRepository;
 let warnUserUseCase: WarnUserUseCase;
+const loggerProvider = new WinstonLoggerProvider();
 
 describe('Warn user', () => {
   beforeEach(() => {
     usersRepository = new FakeUsersRepository();
-    warnUserUseCase = new WarnUserUseCase(usersRepository);
+    warnUserUseCase = new WarnUserUseCase(usersRepository, loggerProvider);
   });
 
   it('Should be able create and warn users', async (next) => {
